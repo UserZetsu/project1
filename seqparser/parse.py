@@ -100,6 +100,7 @@ class Parser:
                     rec = self.get_record(f_obj)
                     yield rec
                 except Exception as e:
+                    # If we encounter any errors in the file, print the error. 
                     print(e)
                     break
                 
@@ -120,7 +121,17 @@ class FastaParser(Parser):
     def _get_record(self, f_obj: io.TextIOWrapper) -> Tuple[str, str]:
         """
         returns the next fasta record
-        """
+        """        
+        for line in f_obj:
+            line = line.strip()  
+            if line[0] == '>':
+                header = line[1:]
+            else:
+                sequence = line
+                return (header, sequence)
+        raise StopIteration("End of the file")
+        
+        
 
 
 class FastqParser(Parser):
@@ -131,4 +142,20 @@ class FastqParser(Parser):
         """
         returns the next fastq record
         """
+        
+        for line in f_obj:
+            line = line.strip()
+            if line[0] == '@':
+                header = line[1:]
+            elif line[0] in ['A','C','G','T']:
+                sequence = line
+            elif line[0] == '+':
+                None
+            else: 
+                quality = line
+                return (header, sequence, quality)
+        raise StopIteration("End of file")
+                   
+            
+        
 
