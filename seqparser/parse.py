@@ -96,9 +96,13 @@ class Parser:
             # and implement an exception for the error you will find in
             # the error message you receive. 
             while True:
-                rec = self.get_record(f_obj)
-                yield rec
-
+                try: 
+                    rec = self.get_record(f_obj)
+                    yield rec
+                except Exception as e:
+                    print(e)
+                    break
+                
     def _get_record(self, f_obj: io.TextIOWrapper) -> Union[Tuple[str, str], Tuple[str, str, str]]:
         """
         a method to be overridden by inherited classes.
