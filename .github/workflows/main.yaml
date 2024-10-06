@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: [macos-latest, windows-latest]
 
     steps:
     - name: Checkout code
