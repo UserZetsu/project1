@@ -16,15 +16,15 @@ def main():
     # For each record of FastaParser, Transcribe the sequence
     # and print it to console
 
-    for i, (seq, line) in enumerate(aparser):
-        print(i, seq, line)
+    #for i, (seq, line) in enumerate(aparser):
+    #    print(i, seq, line)
         
     # For each record of FastqParser, Transcribe the sequence
     # and print it to console
-
-    #for line in qparser:
-    #    print(line)
-
+    
+    for i, (seq, line, quality) in enumerate(qparser):
+        print(i, seq, line)
+        
     # For each record of FastaParser, Reverse Transcribe the sequence
     # and print it to console
     

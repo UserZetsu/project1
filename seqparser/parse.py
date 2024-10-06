@@ -122,12 +122,14 @@ class FastaParser(Parser):
         """
         returns the next fasta record
         """        
-        for line in f_obj:
+        counter = 0
+        for i, line in enumerate(f_obj):
             line = line.strip()  
-            if line[0] == '>':
+            if counter == 1:
                 header = line[1:]
             else:
                 sequence = line
+                counter = 0 
                 return (header, sequence)
         raise StopIteration("End of the file")
         
@@ -140,20 +142,25 @@ class FastqParser(Parser):
         """
         returns the next fastq record
         """
-        
-        for line in f_obj:
+        counter = 0
+        for i, line in enumerate(f_obj):
             line = line.strip()
-            if line[0] == '@':
+            if counter == 0: 
                 header = line[1:]
-            elif line[0] in ['A','C','G','T']:
+                counter += 1
+            elif counter == 1:
                 sequence = line
-            elif line[0] == '+':
-                None
-            else: 
+                counter += 1 
+            elif counter == 2: 
+                counter += 1 
+                None 
+            else:
+                counter = 0 
                 quality = line
                 return (header, sequence, quality)
         raise StopIteration("End of file")
                    
             
+
         
 
