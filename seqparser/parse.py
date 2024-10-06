@@ -131,8 +131,6 @@ class FastaParser(Parser):
                 return (header, sequence)
         raise StopIteration("End of the file")
         
-        
-
 
 class FastqParser(Parser):
     """

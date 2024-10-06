@@ -1,9 +1,14 @@
 # write tests for parsers
 
-from seqparser import (
-        FastaParser,
-        FastqParser)
+import sys
+import os
 
+# Add the parent directory to sys.path
+parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(parent_dir)
+
+# Now you can import your modules
+from seqparser import FastaParser, FastqParser
 
 def test_freebie_parser_1():
     """
@@ -28,7 +33,13 @@ def test_FastaParser():
     your FastaParser class and assert that it properly
     reads in the example Fasta File.
     """
-    pass
+    aparser = FastaParser('data/test.fa')
+    
+    for i, (header, line) in enumerate(aparser):
+        # Checks correct formatting
+        assert header == f'seq{i}'
+        
+
 
 
 def test_FastqParser():
@@ -38,4 +49,5 @@ def test_FastqParser():
     your FastqParser class and assert that it properly
     reads in the example Fastq File.
     """
-    pass
+    for i, (header, line, quality):
+        assert 
