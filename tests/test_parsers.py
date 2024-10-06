@@ -49,5 +49,6 @@ def test_FastqParser():
     your FastqParser class and assert that it properly
     reads in the example Fastq File.
     """
-    for i, (header, line, quality):
-        assert 
+    qparser = FastqParser('data/test.fq')
+    for i, (header, line, quality) in enumerate(qparser):
+        assert header == f'seq{i}'
